@@ -20,15 +20,15 @@ EntityWriter::EntityWriter(dxfRW &dxfW) : dxfW(dxfW) {
 //}
 
 //void EntityWriter::Arc(double staangle, double endangle, double thick, double radius, double center, int isccw)
-//void EntityWriter::Arc(int x, int y, double radius, double staangle, double endangle)
-//{
-//    DRW_Arc arc;
-//    arc.basePoint.x = x;
-//    arc.basePoint.y = y;
-//    arc.radious = radius;
-//    arc.staangle = staangle;
-//    arc.endangle = endangle;
-//    arc.color = 5;
+void EntityWriter::Arc(int x, int y, double radius, double staangle, double endangle)
+{
+    DRW_Arc arc;
+    arc.basePoint.x = x;
+    arc.basePoint.y = y;
+    arc.radious = radius;
+    arc.staangle = staangle;
+    arc.endangle = endangle;
+    arc.color = 5;
 //    double s;
 //    double e;
 //    arc.staangle=startang;
@@ -40,8 +40,8 @@ EntityWriter::EntityWriter(dxfRW &dxfW) : dxfW(dxfW) {
 //    arc.basePoint.x = center;
 //    arc.basePoint.y = center;
 //    arc.thickness = thick;
-//      dxfW.writeArc(&arc);
-//}
+      dxfW.writeArc(&arc);
+}
 
 void EntityWriter::Trace(int a, int b, int c, int d, int e, int f)
 {
@@ -57,7 +57,8 @@ void EntityWriter::Trace(int a, int b, int c, int d, int e, int f)
     trace.color = 4;
     trace.thickness = 10;
     dxfW.writeTrace(&trace);
-    trace.layer = "0";
+    trace.layer = "1";
+    //trace.layerH = "trace";
 }
 
 //void EntityWriter::MSolid(int a, int b, int c, int d, int e, int f, int g, int h)
@@ -148,10 +149,10 @@ void EntityWriter::writeEntities() {
     Text(20, 21,1,'m');
 //    Arc(90, 180, 10, 50, 100, 150);
 //    Arc(30,120);
-//    Arc(45, 90, 20, 1.57, 4.17);
+    Arc(45, 90, 20, 1.57, 4.17);
 //    Trace(-43,72,-52,125,-40,80);
     //Trace(53,13,59,13,56,25);
-    Trace(20,26,45,42,80,75);
+    Trace(-95,0,-50,0,-70,40);
     rectangle(20,40,40,40,40,60,20,60);
 //    MSolid(20,20,60,60,100,100,20,20);
 //    Line(30,30,70,70);
@@ -184,7 +185,7 @@ void EntityWriter::rectangle(int x, int y, int a, int b, int c, int d, int e , i
     rect.basePoint.x = x;
     rect.basePoint.y = y;
     dxfW.writeLine(&rect);
-    rect.layer = "1";
+    //rect.layer = "rect";
 }
 
 
