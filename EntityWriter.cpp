@@ -3,21 +3,25 @@ EntityWriter::EntityWriter(dxfRW &dxfW) : dxfW(dxfW) {
 }
 
 
-//void EntityWriter::Line(int a, int b, int c, int d){
-//    DRW_Line line;
-//    line.basePoint.x = a;
-//    line.basePoint.y = b;
-//    line.secPoint.x = c;
-//    line.secPoint.y = d;
-//    dxfW.writeLine(&line);
-//}
+void EntityWriter::Line(int a, int b, int c, int d){
+    DRW_Line line;
+    line.basePoint.x = a;
+    line.basePoint.y = b;
+    line.secPoint.x = c;
+    line.secPoint.y = d;
+    //line.layer="line";
+    line.layer = "line";
+    dxfW.writeLine(&line);
+}
 
-//void EntityWriter::Point(int x, int y){
-//    DRW_Point BPoint;
-//    BPoint.basePoint.x = x;
-//    BPoint.basePoint.y = y;
-//    dxfW.writePoint(&BPoint);
-//}
+void EntityWriter::Point(int x, int y)
+{
+    DRW_Point BPoint;
+    BPoint.basePoint.x = x;
+    BPoint.basePoint.y = y;
+    BPoint.layer = "Point";
+    dxfW.writePoint(&BPoint);
+}
 
 //void EntityWriter::Arc(double staangle, double endangle, double thick, double radius, double center, int isccw)
 void EntityWriter::Arc(int x, int y, double radius, double staangle, double endangle)
@@ -40,6 +44,7 @@ void EntityWriter::Arc(int x, int y, double radius, double staangle, double enda
 //    arc.basePoint.x = center;
 //    arc.basePoint.y = center;
 //    arc.thickness = thick;
+    arc.layer = "arc";
       dxfW.writeArc(&arc);
 }
 
@@ -56,8 +61,9 @@ void EntityWriter::Trace(int a, int b, int c, int d, int e, int f)
     //trace.fourPoint.y = h;
     trace.color = 4;
     trace.thickness = 10;
+    trace.layer = "trace";
     dxfW.writeTrace(&trace);
-    trace.layer = "1";
+    //trace.layer = "1";
     //trace.layerH = "trace";
 }
 
@@ -100,7 +106,9 @@ void EntityWriter::Trace(int a, int b, int c, int d, int e, int f)
 
 
 //-enum VAlign { VBaseLine =0, VBottom, VMiddle, VTop }
-void EntityWriter::Text(int Height, int Width, int textgen, char s)
+
+//void EntityWriter::Text(int Height, int Width, int textgen, char s)
+void EntityWriter::Text(int Height, int Width)
 //-enum DRW_Text::VAlign (int vx, int vy)
 {
     DRW_Text Tex;
@@ -114,13 +122,17 @@ void EntityWriter::Text(int Height, int Width, int textgen, char s)
 
         Tex.height = Height;
         Tex.widthscale = Width;
-        Tex.textgen=textgen;
-        UTF8STRING text;
-        text="moc";
-        textgen = 1;
+//        Tex.textgen=textgen;
+//        UTF8STRING text;
+//        text="moc";
+//        textgen = 1;
+        Tex.text="Monisha";
+        Tex.angle=0;
+        Tex.oblique=10;
+
         //text=s;
 //        dxfW.writeText(&text);
-         addText(Tex);
+          addText(Tex);
 //        angle = 0;
 //        widthscale = 1;
 //        style = "STANDARD";
@@ -134,7 +146,9 @@ void EntityWriter::Text(int Height, int Width, int textgen, char s)
 //        double widthscale;
 //        int textgen;
 //    dwgHandle styleH;
-        dxfW.writeText(&Tex);
+         Tex.layer="text";
+         dxfW.writeText(&Tex);
+
 }
 
 //void EntityWriter::dimension()
@@ -144,16 +158,16 @@ void EntityWriter::Text(int Height, int Width, int textgen, char s)
 
 
 void EntityWriter::writeEntities() {
-//    Line(20,20,70,70);
-//    Point(10, 20);
-    Text(20, 21,1,'m');
+    Line(20,20,70,70);
+    Point(10, 20);
+    Text(20, 0);
 //    Arc(90, 180, 10, 50, 100, 150);
 //    Arc(30,120);
     Arc(45, 90, 20, 1.57, 4.17);
 //    Trace(-43,72,-52,125,-40,80);
     //Trace(53,13,59,13,56,25);
     Trace(-95,0,-50,0,-70,40);
-    rectangle(20,40,40,40,40,60,20,60);
+//    rectangle(20,40,40,40,40,60,20,60);
 //    MSolid(20,20,60,60,100,100,20,20);
 //    Line(30,30,70,70);
 //    Point(40, 44);
@@ -162,30 +176,31 @@ void EntityWriter::writeEntities() {
     //addPoint(DRW_Point &BPoint);
 }
 
-void EntityWriter::rectangle(int x, int y, int a, int b, int c, int d, int e , int f)
-{
-    DRW_Line rect;
-    rect.basePoint.x = x;
-    rect.basePoint.y = y;
-    rect.secPoint.x = a;
-    rect.secPoint.y = b;
-    dxfW.writeLine(&rect);
-    rect.secPoint.x = a;
-    rect.secPoint.y = b;
-    rect.basePoint.x = c;
-    rect.basePoint.y = d;
-    dxfW.writeLine(&rect);
-    rect.basePoint.x = c;
-    rect.basePoint.y = d;
-    rect.secPoint.x = e;
-    rect.secPoint.y = f;
-    dxfW.writeLine(&rect);
-    rect.secPoint.x = e;
-    rect.secPoint.y = f;
-    rect.basePoint.x = x;
-    rect.basePoint.y = y;
-    dxfW.writeLine(&rect);
-    //rect.layer = "rect";
-}
+//void EntityWriter::rectangle(int x, int y, int a, int b, int c, int d, int e , int f)
+//{
+//    DRW_Line rect;
+//    rect.basePoint.x = x;
+//    rect.basePoint.y = y;
+//    rect.secPoint.x = a;
+//    rect.secPoint.y = b;
+//    dxfW.writeLine(&rect);
+//    rect.secPoint.x = a;
+//    rect.secPoint.y = b;
+//    rect.basePoint.x = c;
+//    rect.basePoint.y = d;
+//    dxfW.writeLine(&rect);
+//    rect.basePoint.x = c;
+//    rect.basePoint.y = d;
+//    rect.secPoint.x = e;
+//    rect.secPoint.y = f;
+//    dxfW.writeLine(&rect);
+//    rect.secPoint.x = e;
+//    rect.secPoint.y = f;
+//    rect.basePoint.x = x;
+//    rect.basePoint.y = y;
+//    rect.layer = "rect";
+//    dxfW.writeLine(&rect);
+
+//}
 
 
