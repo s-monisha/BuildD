@@ -1,5 +1,6 @@
 #include <drw_interface.h>
 #include <libdxfrw.h>
+using namespace std;
 
 class EntityWriter : public DRW_Interface {
 private:
@@ -12,20 +13,17 @@ public:
     }
 
     /*
-     *Line function and point function.
+     *Line, point, dimension, Text, Arc, Trace function.
      */ 
     
-    void Line(int a, int b, int c, int d);
-    void Point(int x, int y);
-    //void Text(int VBaseLine, int VBottom, int VMiddle, int VTop, int textgen);
-    void Text(int Height, int Width);
-//    void Arc(double staangle, double endangle, double thick, double radius, double center, int isccw);
-//    void Arc(double , double );
+    void LineV(int a, int b, int c, int d);
+    void Point(int x, int y, string layer);
+    void dimension();
+    void Text(int Height, int Width, string s, int x, int y);
     void Arc(int x, int y, double radius, double staangle, double endangle);
-//    void Trace(int , int , int , int);
     void Trace(int a, int b, int c, int d, int e, int f);
-//    void rectangle(int x, int y, int a, int b, int c, int d, int e, int f);
-//    void MSolid(int a, int b, int c, int d, int e, int f, int g, int h);
+
+
     virtual void addHeader(const DRW_Header *data) override {
 
     }
@@ -216,12 +214,12 @@ public:
     virtual void writeDimstyles() override {
 
     }
+	
+    virtual void writeEntities() override ;
 
-//    virtual void writeAppId() override {
+//  virtual void writeAppId() override {
 
-//    }
-
-    virtual void writeEntities() override;
+//  }
 
 };
 
