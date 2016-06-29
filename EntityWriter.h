@@ -22,8 +22,9 @@ public:
     void Text(int Height, int Width, string s, int x, int y);
     void Arc(int x, int y, double radius, double staangle, double endangle);
     void Trace(int a, int b, int c, int d, int e, int f);
-
-
+    void spline(double ex, double ey, double tgsx, double tgsy, double tgex, double tgey, int flags, int degree);
+    void mtext();
+    void hatch();
     virtual void addHeader(const DRW_Header *data) override {
 
     }
@@ -215,7 +216,7 @@ public:
 
     }
 	
-    virtual void writeEntities() override{} 
+    virtual void writeEntities() override;
 
 //  virtual void writeAppId() override {
 
