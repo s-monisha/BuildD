@@ -13,18 +13,20 @@ public:
     }
 
     /*
-     *Line, point, dimension, Text, Arc, Trace function.
+     *Linefunction.
      */ 
     
-    void LineV(int a, int b, int c, int d);
-    void Point(int x, int y, string layer);
+    void Line(double a, double b, double c, double d, string layer, double color);
+    void createCircle(double cx, double cy, double radius, string layer, double color);
+    void Point(double x, double y, string layer, double color);
     void dimension();
-    void Text(int Height, int Width, string s, int x, int y);
-    void Arc(int x, int y, double radius, double staangle, double endangle);
-    void Trace(int a, int b, int c, int d, int e, int f);
-    void spline(double ex, double ey, double tgsx, double tgsy, double tgex, double tgey, int flags, int degree);
-    void mtext();
-    void hatch();
+    void wall(double l, double h, double cx, double cy, string layer, double color);
+    void Text(double Height, double Width, string s, double x, double y, string layer, double color);
+    void Arc(double x, double y, double radius, double staangle, double endangle, string layer, double color);
+    void Trace(double a, double b, double c, double d, double e, double f, string layer, double color);
+
+	
+
     virtual void addHeader(const DRW_Header *data) override {
 
     }
@@ -215,7 +217,7 @@ public:
     virtual void writeDimstyles() override {
 
     }
-	
+
     virtual void writeEntities() override;
 
 //  virtual void writeAppId() override {

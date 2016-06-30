@@ -1,0 +1,18 @@
+This project demonstrates use of libdxfrw to create constituents of
+a building.
+
+#Clone this repository
+
+git clone https://gitlab.com/greatdeveloper/BuildD.git 
+
+#Edit line 10 accordingly in CMakeLists.txt
+
+set(CMAKE_PREFIX_PATH $ENV{HOME}/Qt5.5.1/5.5/gcc_64)
+
+# Compilation
+
+$ cd BuildD
+
+$ mkdir build && cd build && cmake .. && make
+
+$ ./BuildD
