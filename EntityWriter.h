@@ -16,10 +16,11 @@ public:
      *Linefunction.
      */ 
     
-    void Line(double a, double b, double c, double d, string layer, double color);
+    void Line(double a, double b, double c, double d, string layer, int color);
     void createCircle(double cx, double cy, double radius, string layer, double color);
     void Point(double x, double y, string layer, double color);
     void dimension();
+    void layer(string name, DRW_LW_Conv::lineWidth lWeight, int color, string linetype);
     void wall(double l, double h, double cx, double cy, string layer, double color);
     void Text(double Height, double Width, string s, double x, double y, string layer, double color);
     void Arc(double x, double y, double radius, double staangle, double endangle, string layer, double color);
