@@ -2,7 +2,7 @@
 EntityWriter::EntityWriter(dxfRW &dxfW) : dxfW(dxfW) {
 }
 
-void EntityWriter::Line(double a, double b, double c, double d, string layer, int color)
+void EntityWriter::Line(double a, double b, double c, double d, string layer, double color)
 {
     DRW_Line line;
     line.basePoint.x = a;
@@ -100,7 +100,7 @@ void EntityWriter::dimension()
    dxfW.writeDimension(&dim);
 }
 
-void EntityWriter::layer(string name, DRW_LW_Conv::lineWidth lWeight, int color, string linetype)
+DRW_Layer EntityWriter::layer(string name, DRW_LW_Conv::lineWidth lWeight, int color, string linetype)
 {
     DRW_Layer Layer;
     Layer.name = name;
@@ -108,7 +108,7 @@ void EntityWriter::layer(string name, DRW_LW_Conv::lineWidth lWeight, int color,
     Layer.color = color;
     Layer.lineType = linetype;
     dxfW.writeLayer(&Layer);
-//    return Layer;
+    return Layer;
 }
 
 
